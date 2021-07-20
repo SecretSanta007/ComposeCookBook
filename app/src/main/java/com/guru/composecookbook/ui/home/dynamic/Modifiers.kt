@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -28,6 +29,7 @@ import com.guru.composecookbook.theme.green500
 import com.guru.composecookbook.theme.teal200
 import com.guru.composecookbook.theme.typography
 
+@ExperimentalComposeUiApi
 @Composable
 fun HowToModifiers() {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
@@ -42,11 +44,19 @@ fun HowToModifiers() {
         DemoText("Modifier.fillMaxWidth")
         DemoElementButton(modifier = Modifier.fillMaxWidth())
         DemoText("Modifier.fillMaxWidth.padding(12)")
-        DemoElementButton(modifier = Modifier.fillMaxWidth().padding(12.dp))
-        DemoText("Modifier.preferredSize(100dp)")
-        DemoElementButton(modifier = Modifier.preferredSize(100.dp))
+        DemoElementButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
+        )
+        DemoText("Modifier.size(100dp)")
+        DemoElementButton(modifier = Modifier.size(100.dp))
         DemoText("Modifier.height(50).width(200)")
-        DemoElementButton(modifier = Modifier.height(50.dp).width(200.dp))
+        DemoElementButton(
+            modifier = Modifier
+                .height(50.dp)
+                .width(200.dp)
+        )
 
         DemoText("Modifier.clip(CircleShare)")
         DemoElementButton(modifier = Modifier.clip(CircleShape))
@@ -72,7 +82,8 @@ fun HowToModifiers() {
         DemoElementButton(modifier = Modifier.background(MaterialTheme.colors.secondary))
         DemoText("Modifier.padding(8.dp).background(brush = HorizontalGradient)")
         DemoElementText(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier
+                .padding(8.dp)
                 .background(
                     brush = Brush.horizontalGradient(
                         colors = listOf(teal200, green500),
@@ -90,7 +101,8 @@ fun HowToModifiers() {
                         startX = 0f,
                         endX = 200f
                     )
-                ).padding(8.dp)
+                )
+                .padding(8.dp)
         )
         DemoText("Modifier.background(brush = VerticalGradient).padding(8.dp)")
         DemoElementText(
@@ -101,27 +113,38 @@ fun HowToModifiers() {
                         startY = 0f,
                         endY = 500f
                     )
-                ).padding(8.dp)
+                )
+                .padding(8.dp)
         )
 
         DemoText("Modifier.background(teal200).padding(8.dp).clickable(onClick = {})")
         DemoElementText(
-            modifier = Modifier.background(teal200).padding(8.dp).clickable(onClick = {})
+            modifier = Modifier
+                .background(teal200)
+                .padding(8.dp)
+                .clickable(onClick = {})
         )
         DemoText("Modifier.clickable(onClick = {}).background(teal200).padding(8.dp)")
         DemoElementText(
-            modifier = Modifier.clickable(onClick = {}).background(teal200).padding(8.dp)
+            modifier = Modifier
+                .clickable(onClick = {})
+                .background(teal200)
+                .padding(8.dp)
 
         )
         DemoText("Add double tap: Modifier.pointerInteropFilter for tap and motion events ")
-        DemoElementText(modifier = Modifier.background(teal200).pointerInteropFilter {
-            true
-        }
+        DemoElementText(modifier = Modifier
+            .background(teal200)
+            .pointerInteropFilter {
+                true
+            }
             .padding(8.dp))
         DemoText("Use Modifier.pointerInput() for all drag, tag, long press gestures")
-        DemoElementText(modifier = Modifier.background(teal200).pointerInput("key") {
-            this.detectTapGestures { }
-        }
+        DemoElementText(modifier = Modifier
+            .background(teal200)
+            .pointerInput("key") {
+                this.detectTapGestures { }
+            }
             .padding(8.dp))
 
     }
@@ -149,6 +172,7 @@ fun DemoText(text: String) {
     )
 }
 
+@ExperimentalComposeUiApi
 @Preview
 @Composable
 fun PreviewHowToModifiers() {

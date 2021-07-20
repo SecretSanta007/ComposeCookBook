@@ -40,8 +40,10 @@ fun AnimationsForStates() {
 fun SimpleColorStateAnimation() {
     SubtitleText(subtitle = "Animate color")
     val enabled = remember { mutableStateOf(true) }
-    val animatedColor = animateColorAsState(targetValue =
-    if (enabled.value) MaterialTheme.colors.primary else MaterialTheme.colors.secondary)
+    val animatedColor = animateColorAsState(
+        targetValue =
+        if (enabled.value) MaterialTheme.colors.primary else MaterialTheme.colors.secondary
+    )
 
     val buttonColors = ButtonDefaults.buttonColors(
         backgroundColor = animatedColor.value
@@ -57,13 +59,15 @@ fun SimpleColorStateAnimation() {
         Text("Color Animation")
     }
 }
+
 //
 @Composable
 fun SimpleDpStateAnimations() {
     SubtitleText(subtitle = "Animate DP value")
     var enabled by remember { mutableStateOf(true) }
     val animatedColorState = animateColorAsState(
-        targetValue = if (enabled) MaterialTheme.colors.primary else MaterialTheme.colors.secondary)
+        targetValue = if (enabled) MaterialTheme.colors.primary else MaterialTheme.colors.secondary
+    )
     val animatedHeightState = animateDpAsState(targetValue = if (enabled) 40.dp else 60.dp)
     val animatedWidthState = animateDpAsState(if (enabled) 150.dp else 300.dp)
     val buttonColors = ButtonDefaults.buttonColors(
@@ -75,7 +79,7 @@ fun SimpleDpStateAnimations() {
         modifier = Modifier
             .padding(16.dp)
             .height(animatedHeightState.value)
-            .preferredWidth(animatedWidthState.value),
+            .width(animatedWidthState.value),
     ) {
         Text("Scale & Color")
     }
@@ -110,7 +114,7 @@ fun SimpleOffsetStateAnimation() {
             painterResource(id = R.drawable.p1),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(100.dp)
+                .size(100.dp)
                 .padding(16.dp)
                 .offset(x = Dp(animatedOffset.x), y = Dp(animatedOffset.y))
                 .clickable { enabled = !enabled }
@@ -119,7 +123,7 @@ fun SimpleOffsetStateAnimation() {
             painterResource(id = R.drawable.p2),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(100.dp)
+                .size(100.dp)
                 .padding(16.dp)
                 .offset(x = -Dp(animatedOffset.x), y = -Dp(animatedOffset.y))
                 .clickable { enabled = !enabled }
@@ -129,6 +133,7 @@ fun SimpleOffsetStateAnimation() {
 }
 
 data class CustomAnimationState(val width: Dp, val rotation: Float)
+
 @Composable
 fun SimpleAnimateCustomStateClass() {
     SubtitleText(subtitle = "Animate Custom Class State with 2D vector")
@@ -143,7 +148,7 @@ fun SimpleAnimateCustomStateClass() {
         targetValue = uiState,
         typeConverter = TwoWayConverter(
             convertToVector = { AnimationVector2D(it.width.value, it.rotation) },
-            convertFromVector = { CustomAnimationState(it.v1.dp, it.v2)}
+            convertFromVector = { CustomAnimationState(it.v1.dp, it.v2) }
         ),
         animationSpec = tween(600)
     )
@@ -165,16 +170,6 @@ fun SimpleAnimateCustomStateClass() {
 fun DrawLayerWithAnimateAsStateAnimations() {
     TitleText(title = "Float state Animations on graphicsLayer")
     var draw by remember { mutableStateOf(false) }
-    val modifier = Modifier
-        .preferredSize(150.dp)
-        .graphicsLayer(
-            scaleX = animateFloatAsState(if (draw) 2f else 1f).value,
-            scaleY = animateFloatAsState(if (draw) 2f else 1f).value,
-            shadowElevation = animateFloatAsState(if (draw) 50f else 5f).value,
-            clip = draw,
-            rotationZ = animateFloatAsState(if (draw) 360f else 0f).value
-        )
-        .clickable(onClick = { draw = !draw })
 
     Spacer(modifier = Modifier.padding(30.dp))
     var draw2 by remember { mutableStateOf(false) }
@@ -184,7 +179,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.adele21),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw2) 30f else 5f).value,
                     translationX = animateFloatAsState(if (draw2) 320f else 0f).value,
@@ -196,7 +191,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.dualipa),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw2) 30f else 10f).value,
                     translationX = animateFloatAsState(if (draw2) -320f else 0f).value,
@@ -208,7 +203,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.edsheeran),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw2) 30f else 5f).value,
                     translationY = animateFloatAsState(if (draw2) 0f else 50f).value
@@ -224,7 +219,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.wolves),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw3) 30f else 5f).value,
                     translationX = animateFloatAsState(if (draw3) 320f else 0f).value,
@@ -237,7 +232,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.sam),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw3) 30f else 10f).value,
                     translationX = animateFloatAsState(if (draw3) -320f else 0f).value,
@@ -250,7 +245,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.billie),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw3) 30f else 5f).value,
                     translationY = animateFloatAsState(if (draw3) 0f else 50f).value,
@@ -267,7 +262,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.imagindragon),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw4) 30f else 5f).value,
                     translationX = animateFloatAsState(if (draw4) 320f else 0f).value,
@@ -280,7 +275,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.khalid),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw4) 30f else 10f).value,
                     translationX = animateFloatAsState(if (draw4) -320f else 0f).value,
@@ -293,7 +288,7 @@ fun DrawLayerWithAnimateAsStateAnimations() {
             painter = painterResource(id = R.drawable.camelia),
             contentDescription = null,
             modifier = Modifier
-                .preferredSize(150.dp)
+                .size(150.dp)
                 .graphicsLayer(
                     shadowElevation = animateFloatAsState(if (draw4) 30f else 5f).value,
                     translationY = animateFloatAsState(if (draw4) 0f else 50f).value,

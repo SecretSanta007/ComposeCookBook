@@ -5,7 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -20,8 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.guru.composecookbook.R
 import com.guru.composecookbook.theme.typography
-import com.guru.composecookbook.ui.demoapps.youtube.YoutubeChip
 import com.guru.composecookbook.ui.utils.SubtitleText
+import com.guru.composecookbook.youtube.components.YoutubeChip
 
 @Composable
 fun Chips() {
@@ -43,14 +43,18 @@ fun Chips() {
     Row(modifier = Modifier.padding(8.dp)) {
         Button(
             onClick = {},
-            modifier = Modifier.padding(8.dp).clip(CircleShape)
+            modifier = Modifier
+                .padding(8.dp)
+                .clip(CircleShape)
         ) {
             Text(text = "Chip button")
         }
         Button(
             onClick = {},
             enabled = false,
-            modifier = Modifier.padding(8.dp).clip(CircleShape)
+            modifier = Modifier
+                .padding(8.dp)
+                .clip(CircleShape)
         ) {
             Text(text = "Disabled chip")
         }
@@ -90,7 +94,10 @@ private fun CustomImageChip(
             Image(
                 painter = painterResource(imageId),
                 contentDescription = null,
-                modifier = Modifier.padding(8.dp).preferredSize(20.dp).clip(CircleShape)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(20.dp)
+                    .clip(CircleShape)
             )
             Text(
                 text = text,

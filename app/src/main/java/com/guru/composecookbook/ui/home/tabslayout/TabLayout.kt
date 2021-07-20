@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guru.composecookbook.data.DemoDataProvider
-import com.guru.composecookbook.ui.demoapps.instagram.InstagramListItem
+import com.guru.composecookbook.instagram.components.InstagramListItem
 import com.guru.composecookbook.ui.home.lists.GridListView
 import com.guru.composecookbook.ui.home.lists.VerticalListView
 
@@ -35,7 +35,7 @@ private enum class DemoTabs(val value: String) {
 @Composable
 fun TabLayout() {
     val tabsName = remember { DemoTabs.values().map { it.value } }
-    var selectedIndex = remember { mutableStateOf(DemoTabs.APPLE.ordinal) }
+    val selectedIndex = remember { mutableStateOf(DemoTabs.APPLE.ordinal) }
     val icons = listOf(Icons.Default.Info, Icons.Default.Person, Icons.Default.ShoppingCart)
 
     Column {
@@ -83,7 +83,7 @@ fun TabLayout() {
 @Composable
 fun ScrollableListOfTabs() {
     val tweets = remember { DemoDataProvider.tweetList.filter { it.tweetImageId > 0 } }
-    var selectedIndex = remember { mutableStateOf(0) }
+    val selectedIndex = remember { mutableStateOf(0) }
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         ScrollableTabRow(
             selectedTabIndex = selectedIndex.value,
@@ -91,7 +91,9 @@ fun ScrollableListOfTabs() {
             edgePadding = 16.dp,
             indicator = noIndicator,
             backgroundColor = Color.Transparent,
-            modifier = Modifier.fillMaxWidth().padding(8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
         ) {
             tweets.forEachIndexed { index, tweet ->
                 Tab(
@@ -104,7 +106,8 @@ fun ScrollableListOfTabs() {
                         text = tweet.author,
                         imageId = tweet.authorImageId,
                         selected = index == selectedIndex.value,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(horizontal = 4.dp, vertical = 16.dp)
                     )
                 }
@@ -146,7 +149,10 @@ private fun CustomImageChip(
             Image(
                 painter = painterResource(imageId),
                 contentDescription = null,
-                modifier = Modifier.padding(8.dp).preferredSize(20.dp).clip(CircleShape)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(20.dp)
+                    .clip(CircleShape)
             )
             Text(
                 text = text,

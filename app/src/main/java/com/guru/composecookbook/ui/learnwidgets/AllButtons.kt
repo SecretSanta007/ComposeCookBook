@@ -1,25 +1,34 @@
 package com.guru.composecookbook.ui.learnwidgets
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.guru.composecookbook.theme.purple
 import com.guru.composecookbook.theme.purple200
 import com.guru.composecookbook.theme.typography
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import okhttp3.internal.wait
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
 @Composable
 fun AllButtons() {
     Text(text = "Buttons", style = typography.h5, modifier = Modifier.padding(8.dp))
@@ -111,20 +120,63 @@ fun AllButtons() {
         Text(
             text = "Horizontal gradient",
             style = typography.body2.copy(color = Color.White),
-            modifier = Modifier.padding(12.dp).clickable(onClick = {})
+            modifier = Modifier
+                .padding(12.dp)
+                .clickable(onClick = {})
                 .clip(RoundedCornerShape(4.dp))
-                .background(brush = horizontalGradient).padding(12.dp)
+                .background(brush = horizontalGradient)
+                .padding(12.dp)
         )
         Text(
             text = "Vertical gradient",
             style = typography.body1.copy(color = Color.White),
-            modifier = Modifier.padding(12.dp).clickable(onClick = {})
+            modifier = Modifier
+                .padding(12.dp)
+                .clickable(onClick = {})
                 .clip(RoundedCornerShape(4.dp))
-                .background(brush = verticalGradient).padding(12.dp)
+                .background(brush = verticalGradient)
+                .padding(12.dp)
         )
+    }
+
+    val swipeButtonState = remember {
+        mutableStateOf(SwipeButtonState.INITIAL)
+    }
+    val coroutineScope = rememberCoroutineScope()
+    SwipeButton(
+        onSwiped = {
+            swipeButtonState.value = SwipeButtonState.SWIPED
+            coroutineScope.launch {
+                delay(2000)
+                swipeButtonState.value = SwipeButtonState.COLLAPSED
+            }
+        },
+        swipeButtonState = swipeButtonState.value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .height(60.dp),
+        iconPadding = PaddingValues(4.dp),
+        shape = CircleShape,
+    ) {
+        Text(text = "PAY NOW", style = typography.h6.copy(fontSize = 16.sp))
+    }
+    SwipeButton(
+        onSwiped = {},
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        iconPadding = PaddingValues(4.dp),
+        swipeButtonState = SwipeButtonState.INITIAL,
+        shape = CircleShape,
+        enabled = false
+    ) {
+        Text(text = "Swipe", style = typography.body1)
     }
 }
 
+@ExperimentalAnimationApi
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun PreviewButtons() {

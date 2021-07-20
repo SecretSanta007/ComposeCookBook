@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.MaterialTheme
@@ -30,7 +30,8 @@ import com.guru.composecookbook.theme.ComposeCookBookTheme
 fun VerticalListItemSmall(item: Item, modifier: Modifier = Modifier) {
     val typography = MaterialTheme.typography
     Row(
-        modifier = Modifier.clickable(onClick = { })
+        modifier = Modifier
+            .clickable(onClick = { })
             .padding(16.dp)
     ) {
         ItemImage(
@@ -52,7 +53,7 @@ fun ItemImage(item: Item, modifier: Modifier = Modifier) {
         contentScale = ContentScale.Crop,
         contentDescription = null,
         modifier = modifier
-            .preferredSize(100.dp, 80.dp)
+            .size(100.dp, 80.dp)
             .clip(MaterialTheme.shapes.medium)
     )
 }

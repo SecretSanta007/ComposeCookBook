@@ -11,13 +11,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalAnimationClock
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.guru.composecookbook.carousel.Pager
+import com.guru.composecookbook.carousel.PagerState
 import com.guru.composecookbook.theme.ComposeCookBookTheme
 import com.guru.composecookbook.ui.home.advancelists.AdvanceListsActivity.Companion.tabs
-import com.guru.composecookbook.ui.home.carousel.Pager
-import com.guru.composecookbook.ui.home.carousel.PagerState
 import com.guru.composecookbook.ui.home.dynamic.DynamicUIActivity
 
 class AdvanceListsActivity : ComponentActivity() {
@@ -26,6 +25,7 @@ class AdvanceListsActivity : ComponentActivity() {
         intent?.getBooleanExtra(DynamicUIActivity.DARK_THEME, false) ?: false
     }
 
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -60,13 +60,13 @@ class AdvanceListsActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun AdvanceListContent() {
     var selectedIndex by remember { mutableStateOf(0) }
     val pagerState: PagerState = run {
-        val clock = LocalAnimationClock.current
-        remember(clock) {
-            PagerState(clock, 0, 0, tabs.size - 1)
+        remember {
+            PagerState(0, 0, tabs.size - 1)
         }
     }
     Column {

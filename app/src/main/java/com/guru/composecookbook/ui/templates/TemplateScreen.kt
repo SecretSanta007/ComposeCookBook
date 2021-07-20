@@ -9,21 +9,27 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.guru.composecookbook.ui.utils.TestTags
 
 @Composable
 fun TemplateScreen(darkTheme: Boolean) {
     val context = LocalContext.current
-    LazyColumn(modifier = Modifier.fillMaxSize().semantics { testTag = "Template Screen" }) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag(TestTags.TEMPLATE_SCREEN_ROOT)
+    ) {
         items(templates.size) { index ->
             val template = templates[index]
             Button(
                 onClick = {
                     context.startActivity(TemplatesActivity.newIntent(context, template, darkTheme))
                 },
-                modifier = Modifier.fillMaxWidth().padding(12.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
             ) {
                 Text(text = template, modifier = Modifier.padding(8.dp))
             }
@@ -36,11 +42,12 @@ fun TemplateScreen(darkTheme: Boolean) {
 val templates = listOf(
     "Login",
     "Profiles",
-    "Settings",
     "On-boarding",
+    "Charts",
+    "Adding Payment Card",
     "Empty Screens",
+    "Settings",
     "Loaders",
     "Canvas Drawing",
-    "Animations",
-    "Charts",
+    "Animations"
 )

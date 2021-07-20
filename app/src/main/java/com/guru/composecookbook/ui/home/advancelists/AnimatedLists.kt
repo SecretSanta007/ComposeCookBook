@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,18 +27,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.guru.composecookbook.data.DemoDataProvider
 import com.guru.composecookbook.data.model.Tweet
 import com.guru.composecookbook.theme.typography
-import com.guru.composecookbook.ui.demoapps.youtube.YoutubeChip
-import com.guru.composecookbook.ui.utils.VerticalGrid
-import dev.chrisbanes.accompanist.coil.CoilImage
+import com.guru.composecookbook.verticalgrid.VerticalGrid
+import com.guru.composecookbook.youtube.components.YoutubeChip
+
 
 @Composable
 fun AnimatedLists() {
     val tweets = DemoDataProvider.tweetList
     val animations = listOf("Fade", "Scale", "Slide", "Fade+Slide", "Slide up", "RotateX")
-    //TODO optimise dispose methods
     Column {
         var animationIndex by remember { mutableStateOf(0) }
         VerticalGrid(columns = 3, modifier = Modifier.padding(vertical = 12.dp)) {
@@ -45,9 +46,11 @@ fun AnimatedLists() {
                 YoutubeChip(
                     selected = index == animationIndex,
                     text = title,
-                    modifier = Modifier.padding(8.dp).clickable(onClick = {
-                        animationIndex = index
-                    })
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable(onClick = {
+                            animationIndex = index
+                        })
                 )
             }
         }
@@ -73,7 +76,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(600)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .alpha(animatedProgress.value)
         }
         1 -> {
@@ -84,7 +88,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(300, easing = LinearEasing)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .graphicsLayer(scaleY = animatedProgress.value, scaleX = animatedProgress.value)
         }
         2 -> {
@@ -95,7 +100,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(300, easing = FastOutSlowInEasing)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .graphicsLayer(translationX = animatedProgress.value)
         }
         3 -> {
@@ -111,7 +117,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(600)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .graphicsLayer(translationX = animatedProgress.value)
                 .alpha(opacityProgress.value)
         }
@@ -128,7 +135,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(600)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .graphicsLayer(translationY = animatedProgress.value)
                 .alpha(opacityProgress.value)
         }
@@ -140,7 +148,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(400, easing = FastOutSlowInEasing)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .graphicsLayer(rotationX = animatedProgress.value)
         }
         else -> {
@@ -151,7 +160,8 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
                     animationSpec = tween(300)
                 )
             }
-            Modifier.padding(8.dp)
+            Modifier
+                .padding(8.dp)
                 .alpha(animatedProgress.value)
         }
     }
@@ -159,13 +169,24 @@ fun AnimatedListItem(tweet: Tweet, itemIndex: Int, animationIndex: Int) {
         modifier = animatedModifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        CoilImage(
-            data = "https://picsum.photos/id/${itemIndex + 1}/200/200",
+        Image(
+            painter = rememberImagePainter(
+                data = "https://picsum.photos/id/${
+                    itemIndex +
+                        1
+                }/200/200"
+            ),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.size(55.dp).padding(4.dp)
+            modifier = Modifier
+                .size(55.dp)
+                .padding(4.dp)
         )
-        Column(modifier = Modifier.padding(horizontal = 4.dp).weight(1f)) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 4.dp)
+                .weight(1f)
+        ) {
             Text(
                 text = tweet.author,
                 style = typography.h6.copy(fontSize = 16.sp),

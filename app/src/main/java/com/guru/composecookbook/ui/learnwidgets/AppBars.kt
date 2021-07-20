@@ -19,9 +19,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.guru.composecookbook.R
+import com.guru.composecookbook.spotify.ui.home.SpotifyNavType
 import com.guru.composecookbook.theme.twitterColor
 import com.guru.composecookbook.theme.typography
-import com.guru.composecookbook.ui.demoapps.spotify.SpotifyNavType
 import com.guru.composecookbook.ui.utils.SubtitleText
 import com.guru.composecookbook.ui.utils.TitleText
 
@@ -88,8 +88,10 @@ fun TopAppBarsDemo() {
             Image(
                 painter = painterResource(id = R.drawable.p6),
                 contentDescription = null,
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-                    .preferredSize(32.dp).clip(CircleShape)
+                modifier = Modifier
+                    .padding(vertical = 4.dp, horizontal = 8.dp)
+                    .size(32.dp)
+                    .clip(CircleShape)
             )
         },
         actions = {
